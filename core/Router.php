@@ -10,6 +10,7 @@ class Router {
     protected Response $response;
     
     protected array $routes = [];
+    protected array $route_params = [];
 
     private $slugPattern = '([a-z0-9-]+)';
 
@@ -19,6 +20,11 @@ class Router {
         $this->response = $response;
     }
 
+    /**
+     * @param string $path
+     * @param array|callable $callback
+     * @param string|array $method
+     */
     public function add(string $path, array|callable $callback, string|array $method): void
     {
         $path = trim($path, "/");
@@ -35,11 +41,20 @@ class Router {
         ];
     }
 
+    /**
+     * @param string $path
+     * @param array|callable $callback
+     */
     public function get(string $path, array|callable $callback): void
     {
         $this->add($path, $callback, 'get');
     }
 
+
+    /**
+     * @param string $path
+     * @param array|callable $callback
+     */
     public function post(string $path, array|callable $callback): void
     {
         $this->add($path, $callback, 'post');
@@ -52,45 +67,48 @@ class Router {
 
     public function dispatch(): void
     {
-        $path = "/" . $this->request->getPath();
+        $path = $this->request->getPath();
         $route = $this->matchRoute($path);
-
+        dump($this->route_params);
         if($route) {
             $callback = $route[0]['callback'];
-            $this->callRoutingAction($callback, $route[1] ?? null);
+            $this->callRoutingAction($callback, $this->route_params);
         } else {
+            // false url
             echo '404';
         }
-
-
-        // $routes = $this->getRoutes();
-        // $isRouteFound = false;
-
-        // foreach($routes as $route) {
-        //     $callback = $route['callback'];
-        //     $pathRegex = $this->translatePathToRegex($route['path']);
-        //     $match = preg_match($pathRegex, $path, $matches);
-            
-        //     if($match === 1) {
-        //         $this->callRoutingAction($callback, $matches[1] ?? null);
-        //         $isRouteFound = true;
-        //     }
-        // }
-
-        // if(!$isRouteFound) {
-        //     echo '404';
-        // }
     }
 
     private function matchRoute(string $path): ?array
     {
-        foreach($this->routes as $route) {
+        foreach($this->getRoutes() as $route) {
             $pathRegex = $this->translatePathToRegex($route['path']);
-            if(preg_match($pathRegex, $path, $matches) > 0) {
+            if(
+                preg_match($pathRegex, "/$path", $matches) > 0
+                &&
+                in_array($this->request->getMethod(), $route['method'])
+                // if not - access denied
+            ) {
+                $this->setRouteParams($matches, $route);
                 return [$route, array_slice($matches, 1)];
             }
         }
         return null;
+    }
+
+    private function setRouteParams(array $params, array $route): void
+    {
+
+        $pattern = '@' . '\{[a-z0-9-]+\}' . '@';
+        preg_match_all($pattern, $route['path'], $matches);
+
+        foreach($params as $k => $v) {
+            if(!isset($this->route_params[$k])) {
+                if($k !== 0) {
+                    $this->route_params[str_replace(['{', '}'], '', $matches[0][$k-1])] = $v;
+                }
+            }
+        }
     }
 
     private function callRoutingAction(array|callable $callback, $param = null) 

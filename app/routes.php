@@ -19,7 +19,7 @@ $app->router->post(
     "/users/", 
     [App\Controllers\FilmController::class, "index"]
 );
-$app->router->post(
+$app->router->get(
     "/user/{user}/edit/{action}", 
     [App\Controllers\FilmController::class, "test"]
 );
