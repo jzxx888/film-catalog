@@ -1,0 +1,12 @@
+:root {
+    --background_color: #fff;
+    --text_color: #000;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--background_color);
+    color: var(--text_color);
+}

@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "symfony/var-dumper": "^6.3"
+    }
+}
