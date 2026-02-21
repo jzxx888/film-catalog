@@ -1,0 +1,30 @@
+PHP MVC-Framework
+
+Router
+You can add your routes in `app/routes.php`:
+```php
+$app->router->add(
+    "/path", 
+    function() {
+        // your function();
+    },
+    ["servermethod1", "servermethod2"]
+);
+```
+```php
+$app->router->get(
+    "/path2", 
+    [Path\To\Class::class, "method"]
+);
+```
+```php
+$app->router->get(
+    "path3/{param}", 
+    [Path\To\Class::class, "method"]
+);
+```
+
+Website is started due to Application class
+
+
+start: 13.02.2026
