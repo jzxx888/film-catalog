@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
-class HomeController extends Controller {
-    
+class HomeController
+{
+    public function index()
+    {
+        return view('test', ['name' => 'John', 'age' => 35]);
+    }
 }

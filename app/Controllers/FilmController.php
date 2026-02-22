@@ -5,7 +5,7 @@ namespace App\Controllers;
 class FilmController extends Controller {
     public function index()
     {
-        echo 'FilmController index';
+        return 'FilmController index';
     }
 
     /**
@@ -13,10 +13,10 @@ class FilmController extends Controller {
      */
     public function show($film)
     {
-        echo 'FilmController show: '.$film;
+        return 'FilmController show: '.$film;
     }
 
     public function test($user, $action) {
-        echo "{$action} user: {$user}";
+        return "{$action} user: {$user}";
     }
 }

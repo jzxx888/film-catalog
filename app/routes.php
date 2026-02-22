@@ -1,11 +1,15 @@
 <?php
 
-$app->router->add(
+// $app->router->add(
+//     "/", 
+//     function() {
+//         echo "Hello World";
+//     },
+//     ["get", "post"]
+// );
+$app->router->get(
     "/", 
-    function() {
-        echo "Hello World";
-    },
-    ["get", "post"]
+    [App\Controllers\HomeController::class, "index"]
 );
 $app->router->get(
     "films", 
