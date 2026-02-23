@@ -11,6 +11,10 @@ $app->router->get(
     "/", 
     [App\Controllers\HomeController::class, "index"]
 );
+$app->router->post(
+    "/", 
+    [App\Controllers\HomeController::class, "form"]
+);
 $app->router->get(
     "films", 
     [App\Controllers\FilmController::class, "index"]

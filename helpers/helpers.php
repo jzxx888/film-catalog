@@ -1,7 +1,7 @@
 <?php
 
 /**
- * returns Core\Application as instance
+ * @return Core\Application as instance
  */
 function app(): Core\Application
 {
@@ -10,7 +10,7 @@ function app(): Core\Application
 
 
 /**
- * returns Core\Database as instance
+ * @return Core\Database as instance
  */
 function database(): Core\Database
 {
@@ -19,7 +19,7 @@ function database(): Core\Database
 
 
 /**
- * returns Core\Database as instance
+ * @return Core\Database as instance
  */
 function request(): Core\Request
 {
@@ -28,7 +28,7 @@ function request(): Core\Request
 
 
 /**
- * returns Core\Response as instance
+ * @return Core\Response as instance
  */
 function response(): Core\Response
 {
@@ -47,4 +47,21 @@ function view($view = '', $data = [], $layout = ''): string|\Core\View
         return app()->view->render($view, $data, $layout);
     }
     return app()->view;
+}
+
+
+/**
+ * @param string|string[] $cssFiles
+ * @return string with all css files in html <link>-tag
+ */
+function loadCss(string|array $cssFiles): string
+{
+    if(!is_array($cssFiles)) {
+        $cssFiles = [$cssFiles];
+    }
+    return implode('', array_map(function($cssFile) {
+        $standard = '<link rel="stylesheet" type="text/css" href="%file_css%"/>';
+        $cssLink = '/assets/styles/' . $cssFile.'.css';
+        return str_replace("%file_css%", $cssLink, $standard);
+    }, $cssFiles) );
 }

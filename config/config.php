@@ -11,3 +11,6 @@ const APP = ROOT . '/app';
 const CORE = ROOT . '/core';
 const VIEWS = APP . '/views';
 const LAYOUT = 'default';
+const WWW = ROOT . '/public';
+
+const STYLE = 'general';

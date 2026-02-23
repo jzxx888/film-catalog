@@ -6,6 +6,27 @@ class HomeController
 {
     public function index()
     {
-        return view('test', ['name' => 'John', 'age' => 35]);
+        return view(
+            'home', 
+            [
+                'title' => 'Home',
+                'css' => [
+                    'home'
+                ]
+            ]
+        );
+    }
+
+    public function form()
+    {
+        return view(
+            'form', 
+            [
+                'title' => 'Home – Form',
+                'css' => [
+                    'home'
+                ]
+            ]
+        );
     }
 }
