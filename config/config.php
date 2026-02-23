@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 define ( 'ROOT', dirname(__DIR__) );
 
 define ( 'HOST', $_SERVER['HTTP_HOST']);
 
-// const CONFIG;
+define ( 'ENV', parse_ini_file(ROOT . '/.env') );
+
 const HELPERS = ROOT . '/helpers';
 const APP = ROOT . '/app';
 const CORE = ROOT . '/core';
