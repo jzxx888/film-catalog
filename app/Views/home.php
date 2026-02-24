@@ -16,3 +16,14 @@
 
     <button type="submit">Send</button>
 </form>
+
+<?php
+
+use Core\Validator;
+
+$validator = new Validator($_POST);
+$validator->rule('name', 'required');
+$validator->rule('password', ['required', 'password']);
+dump($validator->validate());
+dump($validator->getErrors());
+?>

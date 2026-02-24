@@ -14,3 +14,10 @@ const LAYOUT = 'default';
 const WWW = ROOT . '/public';
 
 const STYLE = 'general';
+
+
+
+const VALIDATION_MESSAGES = [
+    'required' => "%field_name% is required!",
+    'password' => "%field_name% must be at least 6 symbols length!"
+];

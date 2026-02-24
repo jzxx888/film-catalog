@@ -13,7 +13,7 @@ $app->router->get(
 );
 $app->router->post(
     "/", 
-    [App\Controllers\HomeController::class, "form"]
+    [App\Controllers\HomeController::class, "index"]
 );
 $app->router->get(
     "films", 
